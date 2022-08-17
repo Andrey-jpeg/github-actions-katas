@@ -8,4 +8,4 @@ jobs:
       - name: Clone-down
         uses: actions/checkout@v2
       - name: my-step
-        run: bash ../../ci/build-app.sh
+        run: bash ./ci/build-app.sh
