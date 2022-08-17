@@ -62,6 +62,11 @@ jobs:
     needs: Docker-image
     runs-on: ubuntu-latest
     steps:
+    - name: Download build
+      uses: actions/download-artifact@v2
+      with:
+        name: build
+        path: .
     - name: Execute component test
       run: chmod +x ci/component-test.sh && GIT_COMMIT="$GITHUB_SHA" && ci/component-test.sh
 
@@ -69,6 +74,11 @@ jobs:
     needs: Docker-image
     runs-on: ubuntu-latest
     steps:
+    - name: Download build
+      uses: actions/download-artifact@v2
+      with:
+        name: build
+        path: .
     - name: Execute performance test
       run: chmod +x ci/performance-test.sh && GIT_COMMIT="$GITHUB_SHA" && ci/performance-test.sh
     
