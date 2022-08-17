@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: ./app/build/libs/app-0.1-all.jar
+          path: ./code/app/build/libs/app-0.1-all.jar
 
   Docker-image:
     needs: [Clone-down, Build]
