@@ -65,10 +65,10 @@ jobs:
     - name: Download build
       uses: actions/download-artifact@v2
       with:
-        name: build
+        name: code
         path: .
     - name: Execute component test
-      run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+      run: chmod +x ci/component-test.sh && ci/component-test.sh
 
   Performance-test:
     needs: Docker-image
@@ -77,8 +77,8 @@ jobs:
     - name: Download build
       uses: actions/download-artifact@v2
       with:
-        name: build
+        name: code
         path: .
     - name: Execute performance test
-      run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh
+      run: chmod +x ci/performance-test.sh && ci/performance-test.sh
     
