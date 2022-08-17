@@ -40,8 +40,9 @@ jobs:
     needs: [Clone-down, Build]
     runs-on: ubuntu-latest
     steps:
-      - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
       - name: Download build
         uses: actions/download-artifact@v2
         with:
@@ -57,4 +58,4 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0-${{GITHUB_ENV}}
+          tags: ${{env.docker_username}}/micronaut-app:1.0-${{ steps.vars.outputs.sha_short }}
