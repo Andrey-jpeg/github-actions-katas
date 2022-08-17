@@ -3,7 +3,6 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
-  GIT_COMMIT: $(git rev-parse --short "$GITHUB_SHA")
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -56,4 +55,4 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0-${{env.GIT_COMMIT}} 
+          tags: ${{env.docker_username}}/micronaut-app:1.0-$(git rev-parse --short "$GITHUB_SHA")
