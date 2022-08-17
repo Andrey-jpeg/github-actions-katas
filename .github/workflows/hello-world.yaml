@@ -3,6 +3,7 @@ on: push
 env:
   docker_username: ${{ secrets.DOCKER_USERNAME }}
   docker_password: ${{ secrets.DOCKER_PASSWORD }}
+  GIT_COMMIT: ${{GITHUB_SHA}}
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
@@ -55,4 +56,19 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0-${{ GITHUB_SHA::8 }}
+          tags: ${{env.docker_username}}/micronaut-app:1.0-${{ env.GIT_COMMIT }}
+
+  Component-test:
+    needs: Docker-image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Execute component test
+      run: chmod +x ci/component-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/component-test.sh
+
+  Performance-test:
+    needs: Docker-image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Execute performance test
+      run: chmod +x ci/performance-test.sh && GIT_COMMIT="GA-$GITHUB_SHA" && ci/performance-test.sh
+    
