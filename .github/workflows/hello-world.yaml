@@ -6,7 +6,7 @@ env:
   GIT_COMMIT: ${{github.sha}}
 jobs:
   Clone-down:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: gradle:6-jdk11
     steps:
       - name: Clone-down
@@ -19,7 +19,7 @@ jobs:
 
   Build:
     needs: Clone-down
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container: gradle:6-jdk11
     steps:
       - name: Download repo
@@ -39,7 +39,7 @@ jobs:
 
   Docker-image:
     needs: [Clone-down, Build]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Download build
         uses: actions/download-artifact@v2
@@ -60,7 +60,7 @@ jobs:
 
   Component-test:
     needs: Docker-image
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Download build
       uses: actions/download-artifact@v2
@@ -72,7 +72,7 @@ jobs:
 
   Performance-test:
     needs: Docker-image
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Download build
       uses: actions/download-artifact@v2
