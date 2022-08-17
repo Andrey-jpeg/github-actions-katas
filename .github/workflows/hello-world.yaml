@@ -55,7 +55,7 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0-${{ GITHUB_SHA }}
+          tags: ${{env.docker_username}}/micronaut-app:1.0-${GITHUB_SHA}
 
   Component-test:
     needs: Docker-image
