@@ -55,4 +55,4 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: ${{env.docker_username}}/micronaut-app:1.0-$(git rev-parse --short "$GITHUB_SHA")
+          tags: ${{env.docker_username}}/micronaut-app:1.0-${GITHUB_SHA::7}
