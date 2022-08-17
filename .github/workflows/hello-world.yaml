@@ -38,7 +38,7 @@ jobs:
           path: ./app/build/libs/app-0.1-all.jar
 
   Docker-image:
-    needs: Build
+    needs: [Clone-down, Build]
     runs-on: ubuntu-latest
     steps:
       - name: Download build
